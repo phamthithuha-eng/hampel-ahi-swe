@@ -11,27 +11,26 @@ The pipeline is: 2-D FDTD viscoelastic (Kelvin–Voigt) shear-wave simulation �
 * Signal Processing Toolbox (`hampel`, `medfilt1`, `dftmtx`)
 * Image Processing Toolbox (`wiener2`, `ssim`)
 
-No other dependencies. Each script is self-contained apart from the LMS filter functions in the same folder.
+No other dependencies. All scripts and the LMS filter functions sit in the repository root, so simply clone (or download) the repository and run the scripts from that folder.
 
-## Repository layout
+## Files (all in the repository root)
 
-| Folder / file | Purpose | Where it appears in the paper |
+| File | Purpose | Where it appears in the paper |
 |---|---|---|
-| `original_paper_code/Hample_LMS_RIMNI_Final.m` | Full original pipeline (FDTD → noise → Hampel → LMS → AHI) and the figures of the first submission | Sections 2–3, Figs. 4–8 |
-| `original_paper_code/LMS_filter.m` | LMS adaptive noise canceller, zero initial weights (first column of each row) | Eqs. (9)–(13) |
-| `original_paper_code/LMS_filter_2024.m` | Same filter accepting the converged weights of the previous location (spatial weight transfer) | Eq. (14), Fig. 3 |
-| `revision_experiments/LMS_filter_wt.m` | Refactored LMS/ANC function used by all revision experiments: identical update rule, explicit `w_init`/`w_final` for weight transfer, filters the whole sequence | Section 2.3.2 |
-| `revision_experiments/ablation_montecarlo.m` | Matched ablation over 7 configurations, 10 Monte-Carlo runs, mean ± SD | **Table 4** |
-| `revision_experiments/sigma_sweep.m` | Sweep of the Gaussian noise level σ_G | **Table 5** |
-| `revision_experiments/impulse_sweep.m` | Sweep of impulse density p and amplitude A_I | **Table 6** |
-| `revision_experiments/clean_distortion.m` | Distortion of the noise-free signal by each filter (amplitude bias, phase error, waveform RMSE, false-replacement rate) | **Table 3** |
-| `revision_experiments/regen_figures.m` | Re-exports Fig. 4 (noise histograms) and Fig. 8 (μ maps + MAE) with seed 2025 | Figs. 4, 8 |
-| `revision_experiments/khoi6_thay_the.m` | Drop-in replacement for the LMS block of the original script with a `USE_TRANSFER` switch | — |
+| `Hample_LMS_RIMNI_Final.m` | Full original pipeline (FDTD → noise → Hampel → LMS → AHI) and the figures of the first submission | Sections 2–3, Figs. 4–8 |
+| `LMS_filter.m` | LMS adaptive noise canceller, zero initial weights (first column of each row) | Eqs. (9)–(13) |
+| `LMS_filter_2024.m` | Same filter accepting the converged weights of the previous location (spatial weight transfer) | Eq. (14), Fig. 3 |
+| `LMS_filter_wt.m` | Refactored LMS/ANC function used by all revision experiments: identical update rule, explicit `w_init`/`w_final` for weight transfer, filters the whole sequence | Section 2.3.2 |
+| `ablation_montecarlo.m` | Matched ablation over 7 configurations, 10 Monte-Carlo runs, mean ± SD | **Table 4** |
+| `sigma_sweep.m` | Sweep of the Gaussian noise level σ_G | **Table 5** |
+| `impulse_sweep.m` | Sweep of impulse density p and amplitude A_I | **Table 6** |
+| `clean_distortion.m` | Distortion of the noise-free signal by each filter (amplitude bias, phase error, waveform RMSE, false-replacement rate) | **Table 3** |
+| `regen_figures.m` | Re-exports Fig. 4 (noise histograms) and Fig. 8 (μ maps + MAE) with seed 2025 | Figs. 4, 8 |
+| `khoi6_thay_the.m` | Drop-in replacement for the LMS block of the original script with a `USE_TRANSFER` switch | — |
 
 ## Reproducing the results
 
 ```matlab
-cd revision_experiments
 ablation_montecarlo   % Table 4  (~10 min on MATLAB Online)
 sigma_sweep           % Table 5
 impulse_sweep         % Table 6
